@@ -4,4 +4,4 @@ numpy
 scikit-learn
 matplotlib
 seaborn
-plotly==5.22.0
+python-3.10
