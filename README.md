@@ -47,10 +47,9 @@ Dashboard ini dikembangkan menggunakan Streamlit dan di-hosting melalui Streamli
 
 # Langkah-Langkah Penggunaan
 <br />Dashboard memiliki tiga bagian utama:
-<br />Executive Overview: Ringkasan secara umum mengenai proyek, dataset, serta eksplorasi dataset secara umum
-<br />Dashboard RFM: Eksplorasi dataset pelanggan berdasarkan cluster
-<br />Prediksi Insight: Menginput data RFM pelangan untuk menentukan cluster dan rekomendasi
-Untuk menentukan cluster pelanggan, dibutuhkan data Recency, Frequency, dan Monetary pelanggan. Masukkan data bagian "Prediksi Insight" lalu klik "Analisis Sekarang" untuk melihat cluster pelanggan dan prediksi yang sesuai.
+<br />-Overview : melihat karakteristik dataset yang digunakan dan eksplorasi varibel data secara general.
+<br />-Customer Segmentation : Melihat karakteristik dari setiap segmen customer yang terbentuk dari dataset tersebut
+<br />-Customer Detection : Menginput value RFM secara manual untuk melakukan testing Customer Segmentation berdasrkan model K-Means dan menghasilkan strategi bisnis untuk segment customer tersebut.
 
 # Teknologi & Library
 
