@@ -6,7 +6,7 @@ import numpy as np
 import os
 import joblib
 
-BASE_DIR = os.path.dirname(__file_)
+BBASE_DIR = os.path.dirname(__file__)
 
 # --- Konfigurasi Halaman ---
 st.set_page_config(
@@ -1140,4 +1140,5 @@ st.sidebar.markdown("</div>", unsafe_allow_html=True)
 
 if p == "Overview": show_overview_page(data, all_years)
 elif p == "Customer Segmentation": show_segmentation_page()
+
 else: show_customer_detection_page()
