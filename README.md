@@ -15,12 +15,11 @@ Proyek ini bertujuan untuk:
 <br />3. Menyajikan hasil analisis dan segmentasi pelanggan melalui dashboard interaktif, sehingga wawasan yang dihasilkan dapat divisualisasikan secara jelas, mudah dipahami, dan mendukung pengambilan keputusan yang cepat, tepat, dan berbasis data.
 
 # Detail Pemodelan Clustering
-Dataset yang digunakan adalah dataset Online Retail Dataset dari kaggle
-Dilakukan tahapan pre-processing data untuk membersihkan dan menyiapkan data agar siap diolah
-Dilakukan perhitungan skor RFM untuk mendapatkan nilai Recency, Frequency, dan Monetary setiap pelanggan
-Algoritma yang dipilih adalah K-Means dengan Silhouette Score 0.589 dengan pertimbangan visualisasi pemisahan cluster yang lebih baik
-Cluster diinterpretasikan berdasarkan karakteristik Recency, Frequency, dan Monetary
-File model di Link ini.
+<br />-Dataset yang digunakan adalah dataset Online Retail Dataset dari kaggle
+<br />-Dilakukan tahapan pre-processing data untuk membersihkan dan menyiapkan data agar siap diolah
+<br />-Dilakukan perhitungan skor RFM untuk mendapatkan nilai Recency, Frequency, dan Monetary setiap pelanggan
+<br />-Algoritma yang dipilih adalah K-Means dengan Silhouette Score 0.3829 dengan pertimbangan visualisasi pemisahan cluster yang lebih baik
+<br />-Cluster diinterpretasikan berdasarkan karakteristik Recency, Frequency, dan Monetary
 
 # Dashboard
    <img width="1919" height="943" alt="Screenshot 2025-12-15 121759" src="https://github.com/user-attachments/assets/36a45d1f-3167-4f45-abc8-70f1a998861d" />
