@@ -5,8 +5,12 @@ import streamlit.components.v1 as components
 import numpy as np
 import os
 import joblib
-
+# =============================
+# BASE PATH (WAJIB)
+# =============================
 BASE_DIR = os.path.dirname(__file__)
+DATASET_DIR = os.path.join(BASE_DIR, "dataset")
+MODEL_DIR = os.path.join(BASE_DIR, "model")
 
 # --- Konfigurasi Halaman ---
 st.set_page_config(
@@ -231,34 +235,81 @@ div[data-baseweb="popover"] li[aria-selected="true"] {{
 st.markdown(custom_css, unsafe_allow_html=True)
 
 
-# --- DATA LOADING ---
+# =============================
+# DATA LOADING
+# =============================
 @st.cache_data
 def load_data(file_path):
     try:
-        df = pd.read_csv(file_path) 
-        df['Order Date'] = pd.to_datetime(df['Order Date'])
-        df['Year'] = df['Order Date'].dt.year
-        if 'Ship Date' in df.columns:
-            df['Ship Duration'] = (pd.to_datetime(df['Ship Date']) - df['Order Date']).dt.days
+        df = pd.read_csv(file_path)
+        df["Order Date"] = pd.to_datetime(df["Order Date"])
+        df["Year"] = df["Order Date"].dt.year
+
+        if "Ship Date" in df.columns:
+            df["Ship Duration"] = (
+                pd.to_datetime(df["Ship Date"]) - df["Order Date"]
+            ).dt.days
         else:
-            df['Ship Duration'] = 3.5 
+            df["Ship Duration"] = 3.5
+
         return df
+
     except Exception as e:
-        # Fallback to dummy data if loading fails
-        st.error(f"Error loading data: {e}. Using dummy data.")
-        return pd.DataFrame({'Order ID': range(100), 'Sales': np.random.rand(100)*1000, 'Customer Name': [f'Customer {i}' for i in range(100)], 'Customer ID': [f'ID{i}' for i in range(100)], 'Order Date': pd.to_datetime('2023-01-01') + pd.to_timedelta(np.arange(100), unit='D'), 'Sub-Category': np.random.choice(['Phones', 'Chairs', 'Storage', 'Tables', 'Binders', 'Art'], 100), 'State': np.random.choice(list(US_STATE_TO_CODE.keys()), 100), 'Product Name': [f'Prod {i}' for i in range(100)], 'Ship Mode': np.random.choice(['Standard Class', 'Second Class'], 100)})
+        st.error(f"Error loading data: {e}")
+        return pd.DataFrame()
+
 
 @st.cache_data
 def load_clustering_data(file_path):
     try:
         df = pd.read_csv(file_path)
-        # Tambahkan kolom Purchase Type untuk simulasi jika tidak ada di file
-        if 'Purchase Type' not in df.columns:
-             df['Purchase Type'] = np.random.choice(['Online', 'Store', 'Call'], size=len(df))
+
+        if "Purchase Type" not in df.columns:
+            df["Purchase Type"] = np.random.choice(
+                ["Online", "Store", "Call"], size=len(df)
+            )
+
         return df
+
     except Exception as e:
-        st.error(f"Error loading clustering data: {e}. Cannot run segmentation.")
+        st.error(f"Error loading clustering data: {e}")
         return pd.DataFrame()
+
+# =============================
+# MODEL LOADING
+# =============================
+@st.cache_resource
+def load_ml_assets():
+    scaler_path = os.path.join(MODEL_DIR, "scaler_clustering.pkl")
+    model_path = os.path.join(MODEL_DIR, "model_clustering.pkl")
+
+    if not os.path.exists(scaler_path):
+        raise FileNotFoundError("scaler_clustering.pkl tidak ditemukan")
+    if not os.path.exists(model_path):
+        raise FileNotFoundError("model_clustering.pkl tidak ditemukan")
+
+    scaler = joblib.load(scaler_path)
+    kmeans_model = joblib.load(model_path)
+
+    return scaler, kmeans_model
+
+# =============================
+# LOAD DATASET
+# =============================
+data_clean_path = os.path.join(DATASET_DIR, "data_clean.csv")
+data_cluster_path = os.path.join(DATASET_DIR, "data_clustering.csv")
+
+data = load_data(data_clean_path)
+df_rfm = load_clustering_data(data_cluster_path)
+
+# =============================
+# LOAD MODEL
+# =============================
+try:
+    scaler, kmeans_model = load_ml_assets()
+except Exception as e:
+    st.error(str(e))
+    st.stop()
 
 # --- MODEL SIMULATION & REKOMENDASI ---
 # Data Rekomendasi berdasarkan image_1ab8bc.png
@@ -1142,4 +1193,5 @@ if p == "Overview": show_overview_page(data, all_years)
 elif p == "Customer Segmentation": show_segmentation_page()
 
 else: show_customer_detection_page()
+
 
