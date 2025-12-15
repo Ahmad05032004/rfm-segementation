@@ -1,5 +1,23 @@
 # RFM Model Implementation for Global Superstore Customer Segmentation
 Proyek ini melakukan segmentasi pelanggan menggunakan metode RFM (Recency, Frequency, Monetary) untuk mendukung strategi pemasaran yang lebih tepat sasaran. Analisis dilengkapi dengan penerapan model machine learning dan visualisasi interaktif melalui dashboard untuk membantu pengambilan keputusan berbasis data.
+# Struktur Direktori
+```
+rfm-segementation/
+├── dataset/
+│   ├── data_clean.csv            # Dataset transaksi yang sudah dibersihkan
+│   ├── data_clustering.csv       # Dataset final agreggation dengan label cluster
+│   ├── top_products.csv          # Data produk favorit per segmen
+│   └── train.csv                 # Data mentah dari kaggle
+├── image/
+│   └── preview.png               # Screenshot tampilan dashboard
+├── model/
+│   ├── model_clustering.pkl      # Model K-Means yang sudah dilatih
+│   └── scaler_clustering.pkl     # Scaler untuk normalisasi input data baru
+├── Notebook_RFM_Clustering.ipynb # Notebook Jupyter untuk analisis RFM & K-Means
+├── README.md                     
+├── app.py                        # File utama untuk menjalankan Dashboard
+└── requirements.txt              # Daftar library Python yang dibutuhkan
+```
 # Anggota
 <br />1	Rizal Afandi                 - M004D5Y1738 
 <br />2	Muhammad Aflah Ghozi Susanto - M004D5Y1199 
